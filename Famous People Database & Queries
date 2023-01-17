@@ -1,0 +1,113 @@
+CREATE TABLE characters (
+ID INTEGER PRIMARY KEY, 
+lastName TEXT,
+firstName TEXT);
+
+CREATE TABLE mediums (
+ID INTEGER PRIMARY KEY, 
+character_id INTEGER,
+medium TEXT,
+type TEXT);
+
+CREATE TABLE details (
+ID INTEGER PRIMARY KEY,
+character_id INTEGER,
+genre TEXT,
+hairType TEXT,
+popularity INTEGER,
+creationYear INTEGER);
+
+INSERT INTO characters (lastName, firstName)
+VALUES ('Squarepants', 'Spongebob');
+INSERT INTO characters (lastName, firstName)
+VALUES('Potter', 'Harry');
+INSERT INTO characters (lastName, firstName)
+VALUES ('God of Thunder', 'Thor');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Granger', 'Hermoine');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Longstocking', 'Pippi');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Bear', 'Paddington');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Man', 'Iron');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Vader', 'Darth');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Mouse', 'Mickey');
+INSERT INTO characters (lastName, firstName)
+VALUES ('Mouse', 'Minnie');
+
+SELECT * FROM characters;
+
+INSERT INTO mediums (character_id, medium, type)
+VALUES(1, 'cartoon', 'animated');
+INSERT INTO mediums (character_id, medium, type)
+VALUES(2, 'book', NULL);
+INSERT INTO mediums (character_id, medium, type)
+VALUES(3, 'movie', 'live action');
+INSERT INTO mediums (character_id, medium, type)
+VALUES(4, 'book', NULL);
+INSERT INTO mediums (character_id, medium, type)
+VALUES(5, 'book', NULL);
+INSERT INTO mediums (character_id, medium, type)
+VALUES(6, 'book', NULL);
+INSERT INTO mediums (character_id, medium, type)
+VALUES(7, 'movie', 'live action');
+INSERT INTO mediums (character_id, medium, type)
+VALUES(8, 'movie', 'live action');
+INSERT INTO mediums (character_id, medium, type)
+VALUES(9, 'carton', 'animated');
+INSERT INTO mediums (character_id, medium, type)
+VALUES(10, 'cartoon', 'animated');
+
+SELECT * FROM mediums;
+
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(1, 'comedy', NULL, 1, 1999);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(2, 'fantasy', 'short', 10, 1997);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(3, 'super hero', 'long', 10, 1962);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(4, 'fantasy', 'long', 8, 1997);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(5, 'childrens', 'long', 3, 1945);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(6, 'childrens', 'fuzzy', 2, 1958);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(7, 'super hero', NULL, 6, 1963);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(8, 'super hero', NULL, 8, 1977);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(9, 'childrens', NULL, 7, 1928);
+INSERT INTO details (character_id, genre, hairType, popularity, creationYear)
+VALUES(10, 'childrens', NULL, 7, 1928);
+
+ SELECT * FROM details;
+ 
+ /*Outer Join*/
+ SELECT characters.firstName, characters.lastName, mediums.medium
+ FROM characters
+ LEFT OUTER JOIN mediums
+ ON characters.id = mediums.character_id;
+ 
+/*Explicit Inner Join, popularity >5*/
+SELECT characters.firstName, details.popularity
+FROM characters
+JOIN details
+ON characters.id=details.character_id
+WHERE popularity > 5;
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
