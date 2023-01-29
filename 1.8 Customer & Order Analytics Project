@@ -1,11 +1,13 @@
-/* #1. How many orders were placed in January?*/
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+#1. How many orders were placed in January?
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
 AND orderID <> 'Order ID'; 
 
 
-/* #2. How many of those orders were for an iPhone?*/
+#2. How many of those orders were for an iPhone?*/
 SELECT COUNT(orderID)
 FROM BIT_DB.JanSales
 WHERE 
@@ -14,8 +16,7 @@ AND length(orderID) = 6
 AND orderID<>'Order ID';
 
 
-/* #3Select the customer account numbers for all the orders that were placed in February.
-*/
+#3Select the customer account numbers for all the orders that were placed in February.
 SELECT BIT_DB.customers.acctnum
 FROM BIT_DB.customers
 INNER JOIN BIT_DB.FebSales
@@ -24,7 +25,7 @@ WHERE length(orderid) = 6
 AND orderid <> 'Order ID';
 
 
-/* #4. Which product was the cheapest one sold in January, and what was the price?*/
+#4. Which product was the cheapest one sold in January, and what was the price?
 SELECT Product, MIN(price)
 FROM BIT_DB.JANSALES Jan
 GROUP BY Product, price
@@ -32,22 +33,21 @@ ORDER BY price ASC
 LIMIT 1;
 
 
-/* #5. What is the total revenue for each product sold in January? (Revenue can be 
-calculated using the number of products sold and the price of the products).*/
+#5. What is the total revenue for each product sold in January? (Revenue can be 
+calculated using the number of products sold and the price of the products).
 SELECT Product, SUM(quantity)*price AS revenue
 FROM BIT_DB.JANSALES
 GROUP BY Product;
 
 
-/* #6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many 
-of each were sold, and what was the total revenue?*/
+#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many 
+of each were sold, and what was the total revenue?
 SELECT location, Product, SUM(Quantity), SUM(Quantity)*price AS revenue
 FROM BIT_DB.FebSales
 WHERE location LIKE  '%548 Lincoln%' 
 GROUP BY Product;
 
-/* #7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
-*/
+#7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 SELECT count(distinct customers.acctnum) AS total_customers, 
 AVG(quantity*price) AS average_price
 FROM BIT_DB.FebSales
