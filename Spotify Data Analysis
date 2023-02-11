@@ -1,0 +1,100 @@
+SELECT * FROM BIT_DB.Spotifydata;
+
+--Practice with basic filtering
+SELECT artist_name, track_name, popularity
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90;
+
+--OR Operator
+SELECT artist_name, track_name, popularity, danceability
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90 OR danceability >=0.677;
+
+--AND Operator
+SELECT artist_name, track_name, popularity, danceability
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90 AND danceability >=0.677;
+
+--Obtain Non-repeated records with distinct
+SELECT DISTINCT artist_name
+FROM BIT_DB.Spotifydata;
+
+--Sorting data on the BAsis of Multiple Columns using ORder By
+SELECT artist_name, track_name
+FROM BIT_DB.Spotifydata
+ORDER BY artist_name ASC, track_name ASC;
+
+--Identify values aligning with specific pattern
+SELECT track_name, track_id
+FROM BIT_DB.Spotifydata
+WHERE track_id LIKE '%Na%';
+
+--Using Average
+SELECT AVG(duration_ms)
+FROM BIT_DB.Spotifydata;
+
+--Counting Number of Rows
+SELECT COUNT(id)
+FROM BIT_DB.Spotifydata;
+
+--Identifying Maximum Value
+SELECT MAX(popularity), MAX(danceability), MAX(energy), MAX(tempo), 
+MAX(duration_ms)
+FROM BIT_DB.Spotifydata;
+
+--Which artist released the longest song?
+SELECT artist_name, track_name, MAX(duration_ms)
+FROM BIT_DB.Spotifydata;
+
+
+
+--Who are the top 10 artists by popularity?
+SELECT artist_name, track_name, popularity
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC
+LIMIT 10;
+
+--What is the average danceability for the 10 most popular songs?
+SELECT AVG(danceability) AS Average
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC
+LIMIT 10;
+
+--WHich mode is each song in?
+SELECT track_name, song_mode,
+    CASE
+        WHEN song_mode == 0 THEN 'Minor Key'
+        ELSE 'Major Key'
+    END AS mode
+FROM BIT_DB.Spotifydata;    
+
+--Does the key affect the valence? 
+--(Valence - The higher the value, the more positive mood for the song)
+SELECT track_name, valence, song_mode,
+    CASE
+        WHEN song_mode == 0 THEN 'Minor Key'
+        ELSE 'Major Key'
+    END AS mode
+FROM BIT_DB.Spotifydata
+GROUP BY valence
+ORDER BY valence DESC;   
+
+--WHich key is each song in?
+SELECT track_name, song_key,
+    CASE
+        WHEN song_key == 0 THEN 'C'
+        WHEN song_key == 1 THEN 'C#'
+        WHEN song_key == 2 THEN 'D'
+        WHEN song_key == 3 THEN 'D#'
+        WHEN song_key == 4 THEN 'E'
+        WHEN song_key == 5 THEN 'E#'
+        WHEN song_key == 6 THEN 'F'
+        WHEN song_key == 7 THEN 'F#'
+        WHEN song_key == 8 THEN 'G'
+        WHEN song_key == 9 THEN 'G#'
+        WHEN song_key == 10 THEN 'A'
+        WHEN song_key == 11 THEN 'A#'
+        ELSE 'No Key detected'
+    END AS key
+FROM BIT_DB.Spotifydata 
+ORDER BY song_key ASC;
