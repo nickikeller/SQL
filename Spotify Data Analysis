@@ -47,7 +47,6 @@ SELECT artist_name, track_name, MAX(duration_ms)
 FROM BIT_DB.Spotifydata;
 
 
-
 --Who are the top 10 artists by popularity?
 SELECT artist_name, track_name, popularity
 FROM BIT_DB.Spotifydata
@@ -60,7 +59,7 @@ FROM BIT_DB.Spotifydata
 ORDER BY popularity DESC
 LIMIT 10;
 
---WHich mode is each song in?
+--Which mode is each song in?
 SELECT track_name, song_mode,
     CASE
         WHEN song_mode == 0 THEN 'Minor Key'
@@ -98,3 +97,20 @@ SELECT track_name, song_key,
     END AS key
 FROM BIT_DB.Spotifydata 
 ORDER BY song_key ASC;
+
+--Calculate the average popularity for the artists in the Spotify data table. 
+--Then, for every artist with an average popularity of 90 or above, show their name, 
+--their average popularity, and label them as a “Top Star”.
+
+WITH popularity_average_CTE AS (
+SELECT s.artist_name,
+AVG(s.popularity) AS average_popularity
+FROM SpotifyData s 
+GROUP BY s.artist_name
+)
+ 
+SELECT  artist_name,
+        average_popularity,
+        'Top Star' AS tag
+FROM popularity_average_CTE
+WHERE average_popularity>=90;
